@@ -1,56 +1,56 @@
-От вас требуется реализовать шаблонный класс Vector с единственным шаблонным параметром - типом хранящихся элементов.
-При реализации можно (и даже нужно) пользоваться обобщенными алгоритмами из STL (std::copy, std::fill и т.п.), но
-нельзя использовать стандартные контейнеры. Будет проверяться корректность мультипликативной схемы расширения массива с
-коэффициентом 2. В базовой версии ручное управление временем жизни объектов не требуется (см. доп. задание). Класс
-должен поддерживать следующий функционал:
+You are required to implement a generic Vector class with a single generic parameter, the type of elements to store.
+When implementing, it is possible (and even necessary) to use generalized algorithms from the STL (std::copy, std::fill, etc.), but
+you can't use standard containers. The correctness of the multiplicative array expansion scheme will be checked with
+coefficient 2. In the basic version, manual control over the lifetime of objects is not required (see additional task). Class
+must support the following functionality:
 
-Конструктор по умолчанию - создает пустой массив;
-Явный конструктор от числа - создает массив заданного размера заполненный объектами, сконструированными по умолчанию;
-Конструктор, принимающий size и value (именно в этом порядке) - создает массив длины size, заполненный
-элементами со значением value;
-Шаблонный конструктор, принимающий пару итераторов - создает копию переданного диапазона;
+Default constructor - creates an empty array;
+Explicit constructor from number - creates an array of the specified size filled with objects constructed by default;
+Constructor that takes a size and a value (in that order) - collects an array of extracted sizes filled with
+significant expenses;
+Template constructor that takes a pair of iterators - creates a copy of the passed range;
 
-Важно: объявление этого конструктора должно иметь вид
+Important: the declaration of this constructor must be of the form
 template <class Iterator, class = std::enable_if_t<std::is_base_of_v<std::forward_iterator_tag, typename std::iterator_traits<Iterator>::iterator_category>>>
 Vector(Iterator first, Iterator last)
-Это делает конструктор доступным только в случае, когда на вход приходят два Forward итератора.
+This makes the constructor available only when there are two Forward iterators as input.
 
-Конструктор от std::initializer_list;
+Constructor from std::initializer_list;
 
-Правило "пяти";
-Методы Size, Capacity, Empty;
+Rule of five;
+Methods Size, Capacity, Empty;
 
-Константный и неконстантный оператор доступа по индексу []. Неконстантный должен позволять изменять полученный
-элемент;
+Const and non-constant index access operator []. Non-const should allow you to change the received
+element;
 
-Константный и неконстантный метод доступа по индексу At. При выходе за границы массива должен бросать исключение
-std::out_of_range;
+Const and non-constant index access operator []. Non-const should allow you to change the received
+element;
 
-Методы Front() и Back() - доступ к первому и последнему элементам (тоже по две версии).
+Methods Front () and Back () - access to the first and last elements (also two versions each).
 
-Метод Data() - возвращает указатель на начало массива.
+Data() method - returns a pointer to the beginning of the array.
 
-Метод Swap(other) - обменивает содержимое с другим массивом other;
+Swap(other) method - swaps content with another array other;
 
-Метод Resize(new_size) - изменяет размер на new_size. Если вместимость не позволяет хранить столько элементов, то
-выделяется новый буфер с вместимостью new_size. Недостающие элементы конструируются по умолчанию.
+Resize(new_size) method - resizes to new_size. If the capacity does not allow storing so many elements, then
+a new buffer with capacity new_size is allocated. Missing elements are constructed by default.
 
-Метод Resize(new_size, value) - то же, что и Resize(new_size), но в случае new_size > size заполняет недостающие
-элементы значением value.
+Resize(new_size, value) method - the same as Resize(new_size), but in the case of new_size > size fills in the missing
+elements with the value value.
 
-Метод Reserve(new_cap) - изменяет вместимость на max(new_cap, текущая вместимость). Размер при этом не изменяется.
-Метод ShrinkToFit() - уменьшает capacity до size.
+Reserve(new_cap) method - changes capacity to max(new_cap, current capacity). The size does not change.
+ShrinkToFit() method - reduces capacity to size.
 
-Метод Clear() - устанавливает размер в 0, очищения выделенной памяти при этом НЕ происходит.
+The Clear() method - sets the size to 0, while the allocated memory is NOT cleared.
 
-Методы PushBack(const T&) и PushBack(T&&) - добавляет новый элемент в конец массива.
+Methods PushBack(const T&) and PushBack(T&&) - adds a new element to the end of the array.
 
-Метод PopBack() - удаляет последний элемент.
+PopBack() method - removes the last element.
 
-Операции сравнения (<, >, <=, >=, ==, !=), задающие лексикографический порядок.
+Comparison operators (<, >, <=, >=, ==, !=) specifying the lexicographic order.
 
-Также реализуйте поддержку итераторов и методы для работы с ними: begin(), end(), cbegin(), cend(), rbegin(), rend(),
-crbegin(), crend(). begin()-end(), rbegin()-rend() должны иметь две версии, возвращающие константные и неконстантные
-итераторы.
-Внутри класса Vector определите типы-члены ValueType, Pointer, ConstPointer, Reference, ConstReference,
+Also implement support for iterators and methods for working with them: begin(), end(), cbegin(), cend(), rbegin(), rend(),
+crbegin(), crend(). begin()-end(), rbegin()-rend() should have two versions returning const and non-const
+iterators.
+Inside the Vector class, define the member types ValueType, Pointer, ConstPointer, Reference, ConstReference,
 SizeType, Iterator, ConstIterator.# Vector
